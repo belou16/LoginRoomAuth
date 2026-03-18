@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,12 +15,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class homeActivity extends AppCompatActivity {
 
     // private AppDatabase db;
     private SharedPreferences prefs;
+    ListView listView;
+    UserDAO userDAO;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_alluser);
 
+        listView = findViewById(R.id.listViewUsers);
+
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "db")
+                .allowMainThreadQueries()
+                .build();
+        Object userDao = db.userDao();
+
+        List<User> userList = userDao.getClass();
+
+        List<String> displayList = new ArrayList<>();
+
+        for (User user : userList) {
+            displayList.add(user.getName() + " - " + user.getEmail());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                displayList
+        );
+
+        listView.setAdapter(adapter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

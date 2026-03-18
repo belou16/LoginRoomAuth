@@ -11,4 +11,14 @@ public class User {
 
     public User(String name, String email, String password) {
     }
+
+    public String getName() {
+        String name;
+        return name;
+    }
+
+    public String getEmail() {
+        String email;
+        return email;
+    }
 }

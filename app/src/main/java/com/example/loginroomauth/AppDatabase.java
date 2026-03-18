@@ -25,4 +25,7 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
+    public static Object userDao() {
+    }
 }
