@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class RegisterActivity extends AppCompatActivity {
 
     EditText nameInput, emailInput, passwordInput, confirmpasswordInput;
-    Button registerBtn;
+    Button registerBtn, loginBtn;
 
     SharedPreferences sharedPreferences;
 
@@ -28,8 +28,15 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn = findViewById(R.id.button_register);
         nameInput = findViewById(R.id.nom_input_register);
         confirmpasswordInput = findViewById(R.id.confirm_password_input_register);
+        loginBtn = findViewById(R.id.btn_login);
 
         sharedPreferences = getSharedPreferences("LoginRoomAuth", Context.MODE_PRIVATE);
+
+        loginBtn.setOnClickListener(view ->  {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,10 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = passwordInput.getText().toString().trim();
                 String name = nameInput.getText().toString().trim();
                 String confirmpass = confirmpasswordInput.getText().toString().trim();
-
-                User user = new User();
-                AppDatabase db = AppDatabase.getInstance(RegisterActivity.this);
-                db.userDAO().inserer(user);
 
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
@@ -52,6 +55,13 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Confirmation incorrecte", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                User user = new User();
+                user.email = email;
+                user.name = name;
+                user.password = password;
+                AppDatabase db = AppDatabase.getInstance(RegisterActivity.this);
+                db.userDAO().inserer(user);
 
                 saveUser(name,email, password);
                 Toast.makeText(RegisterActivity.this, "Compte cree avec succès !", Toast.LENGTH_SHORT).show();

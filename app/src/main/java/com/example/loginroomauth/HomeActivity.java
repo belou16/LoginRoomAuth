@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
-        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE); // "LoginRoomAuth", Context.MODE_PRIVATE
+        SharedPreferences prefs = getSharedPreferences("LoginRoomAuth", Context.MODE_PRIVATE);
         String user = prefs.getString("User_name","anonyme");
         String email = prefs.getString("User_email","Email_anonyme");
 
@@ -35,8 +35,6 @@ public class HomeActivity extends AppCompatActivity {
         Button btnProfile = findViewById(R.id.btn_profile);
         Button btnLstUser = findViewById(R.id.btn_lst_user);
         Button btnLogout = findViewById(R.id.btn_logout);
-
-        int count;
 
         nomView.setText("Bienvenu " + user);
         emailView.setText(email);

@@ -11,8 +11,8 @@ public interface UserDAO {
     @Insert
     void inserer(User user);
 
-    @Query("SELECT * FROM user WHERE name = :nom AND password = :password")
-    User verifierLogin(String nom, String password);
+    @Query("SELECT * FROM user WHERE email = :email AND password = :password")
+    User verifierLogin(String email, String password);
 
     @Query("SELECT * FROM user")
     List<User> listUser();
