@@ -26,6 +26,8 @@ public class homeActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     ListView listView;
     UserDAO userDAO;
+    //private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
