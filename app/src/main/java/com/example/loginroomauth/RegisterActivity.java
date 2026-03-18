@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        sharedPreferences = getSharedPreferences("LoginRoomAuth", Context.MODE_PRIVATE);
 
         emailInput = findViewById(R.id.mail_input_register);
         passwordInput = findViewById(R.id.password_input_register);
@@ -29,8 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
         nameInput = findViewById(R.id.nom_input_register);
         confirmpasswordInput = findViewById(R.id.confirm_password_input_register);
         loginBtn = findViewById(R.id.btn_login);
-
-        sharedPreferences = getSharedPreferences("LoginRoomAuth", Context.MODE_PRIVATE);
 
         loginBtn.setOnClickListener(view ->  {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);

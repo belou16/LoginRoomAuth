@@ -24,6 +24,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        prefs = getSharedPreferences("LoginRoomAuth", Context.MODE_PRIVATE);
+
+        if(prefs.getBoolean("is_connected", false)) {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         etEmail = findViewById(R.id.input_mail);
         etPassword = findViewById(R.id.input_pwd);
@@ -31,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister = findViewById(R.id.tv_register);
 
         db = AppDatabase.getInstance(this);
-        prefs = getSharedPreferences("LoginRoomAuth", Context.MODE_PRIVATE);
+
 
         tvRegister.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
@@ -55,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (user != null) {
 
                         prefs.edit()
-                                .putBoolean("Is_connect", true)
+                                .putBoolean("is_connected", true)
                                 .putString("User_email", user.email)
                                 .putString("User_name", user.name)
                                 .apply();

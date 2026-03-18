@@ -28,8 +28,6 @@ public class HomeActivity extends AppCompatActivity {
         String user = prefs.getString("User_name","anonyme");
         String email = prefs.getString("User_email","Email_anonyme");
 
-
-
         TextView nomView = findViewById(R.id.name_view);
         TextView emailView = findViewById(R.id.email_view);
         Button btnProfile = findViewById(R.id.btn_profile);
