@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +47,13 @@ public class RegisterActivity extends AppCompatActivity {
                 String name = nameInput.getText().toString().trim();
                 String confirmpass = confirmpasswordInput.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty()) {
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(RegisterActivity.this, "Empty email", Toast.LENGTH_SHORT).show();
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(RegisterActivity.this, "Invalid email", Toast.LENGTH_SHORT).show();
+                }
+
+                if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmpass.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     return;
                 }
